@@ -50,8 +50,8 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
-    public Vehiculo(Long id, String serie, String marca, String color, String linea, String modelo) {
-        this.id = id;
+    public Vehiculo( String serie, String marca, String color, String linea, String modelo) {
+        
         this.serie = serie;
         this.marca = marca;
         this.color = color;
@@ -102,6 +102,16 @@ public class Vehiculo implements Serializable {
     public void setLinea(String linea) {
         this.linea = linea;
     }
+
+    public Placa getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(Placa placa) {
+        this.placa = placa;
+    }
+    
+    
 
     public String getModelo() {
         return modelo;

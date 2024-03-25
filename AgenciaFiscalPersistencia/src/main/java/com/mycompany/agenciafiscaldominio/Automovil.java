@@ -24,8 +24,8 @@ public class Automovil extends Vehiculo implements Serializable {
     public Automovil() {
     }
 
-    public Automovil(Long id, String serie, String marca, String color, String linea, String modelo) {
-        super(id, serie, marca, color, linea, modelo);
+    public Automovil( String serie, String marca, String color, String linea, String modelo) {
+        super( serie, marca, color, linea, modelo);
     }
 
     
