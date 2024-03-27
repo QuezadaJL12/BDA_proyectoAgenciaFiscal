@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.agenciafiscalnegocio;
+package com.mycompany.agenciafiscaldtos;
 
 /**
  *
  * @author Usuario
  */
-public class VehiculoNuevoDTO {
+public class VehiculoDTO {
     
     private String serie;
     
@@ -20,7 +20,11 @@ public class VehiculoNuevoDTO {
     
     private String modelo;
 
-    public VehiculoNuevoDTO(String serie, String marca, String color, String linea, String modelo) {
+    public VehiculoDTO(String serie) {
+        this.serie = serie;
+    }
+
+    public VehiculoDTO(String serie, String marca, String color, String linea, String modelo) {
         this.serie = serie;
         this.marca = marca;
         this.color = color;
@@ -67,6 +71,7 @@ public class VehiculoNuevoDTO {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+    
     
     
     
