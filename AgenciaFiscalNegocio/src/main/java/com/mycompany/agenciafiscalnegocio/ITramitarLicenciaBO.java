@@ -4,10 +4,26 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+
 /**
  *
  * @author Usuario
  */
 public interface ITramitarLicenciaBO {
-    
+
+    public LicenciaDTO solicitarLicencia(int años);
+
+    public Float calcularCosto(String string);
+
+    public ClienteDTO consultarCliente();
+
+    public void setCliente(ClienteDTO cliente);
+
+    public void setLicencia(LicenciaNuevaDTO licenciaNueva);
+
+    public LicenciaDTO validacionLicenciaExistencia();
+
 }
