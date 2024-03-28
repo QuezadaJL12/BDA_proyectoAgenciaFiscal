@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Tramite;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -13,5 +15,19 @@ import com.mycompany.agenciafiscaldominio.Tramite;
 public interface ITramiteDAO {
     
     public Tramite consultarLicencias(Tramite tramite);
+    
+    public Tramite consultarPlacasCliente(Tramite tramite);
+    
+    public List<Tramite> consultarTramites();
+    
+    public List<Tramite> consultarTramiteClientes();
+    
+    public List<Tramite> consultarTramitesClienteNombre(String nombre);
+    
+    public String obtenerTipoTramite (Tramite tramite);
+    
+    public List<Tramite> consultarTramitesConCliente();
+    
+    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta);
     
 }

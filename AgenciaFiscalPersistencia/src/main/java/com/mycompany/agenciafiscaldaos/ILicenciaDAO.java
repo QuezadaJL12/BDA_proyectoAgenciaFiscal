@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Licencia;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -15,5 +17,7 @@ public interface ILicenciaDAO {
     public Licencia agregar(Licencia licencia);
 
     public Licencia consultar(Long id);
+    
+    public List<Licencia> consultarTramitePeriodo(Calendar desde, Calendar hasta);
 
 }

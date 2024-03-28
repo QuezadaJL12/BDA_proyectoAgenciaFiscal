@@ -5,12 +5,16 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Licencia;
+import com.mycompany.agenciafiscaldominio.Placa;
 import com.mycompany.agenciafiscaldominio.Tramite;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -44,6 +48,121 @@ public class TramiteDAO implements ITramiteDAO {
         }
         return ultimoTramite;
 
+    }
+
+    @Override
+    public Tramite consultarPlacasCliente(Tramite tramite) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Tramite> consultarTramites() {
+
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t.cliente From Tramite t";
+        Query query = entityManager.createQuery(jpql);
+        return query.getResultList();
+
+    }
+
+    @Override
+    public List<Tramite> consultarTramiteClientes() {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t.clientes FROM Tramite t";
+        Query query = entityManager.createQuery(jpql);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Tramite> consultarTramitesClienteNombre(String nombre) {
+        EntityManager entityManager = conexion.obtenerConexion();
+        // objeto constructor de consultas
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        //Objeto consulta que se esta construyendo
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+
+        // Crear un predicado para la comparacion con LIKE
+        Predicate predicate = builder.like(root.get("cliente").get("nombre"), "%" + nombre + "%");
+
+        // Agregar el predicado a la consulta
+        criteria.select(root).where(predicate);
+        TypedQuery<Tramite> query = entityManager.createQuery(criteria);
+        List<Tramite> tramites = query.getResultList();
+        entityManager.close();
+
+        return tramites;
+
+    }
+
+    @Override
+    public String obtenerTipoTramite(Tramite tramite) {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        Query query = entityManager.createQuery("SELECT TYPE(t) From Tramite t where t.id = :id");
+        query.setParameter("id", tramite.getId());
+        Class<?> tipo = (Class<?>) query.getSingleResult();
+        //obtenetr el nombre de la clase como String 
+        return tipo.getSimpleName();
+
+    }
+
+    @Override
+    public List<Tramite> consultarTramitesConCliente() {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t FROM Tramite t JOIN FETCH t.cliente";
+        TypedQuery<Tramite> query = entityManager.createQuery(jpql, Tramite.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
+
+        EntityManager entityManager = conexion.obtenerConexion();
+        StringBuilder jpqlBuilder = new StringBuilder("SELECT t FROM t JOIN t.cliente c WHERE 1 = 1");
+
+        if (!nombre.isBlank()) {
+            jpqlBuilder.append("AMD c.nombre = :nombre");
+        }
+
+        if (!tipo.isBlank()) {
+            jpqlBuilder.append("AND TYPE (t) = : tipoTramite");
+        }
+
+        if (desde != null && hasta != null) {
+            jpqlBuilder.append("AND t.fecha_expedicion BETWEEN : fechaInicio AND : fechaFin");
+        }
+
+        TypedQuery<Tramite> query = entityManager.createQuery(jpqlBuilder.toString(), Tramite.class);
+
+        if (!nombre.isBlank()) {
+            query.setParameter("nombre", nombre);
+        }
+
+        if (!tipo.isBlank()) {
+            if (tipo.equalsIgnoreCase("Licencia")) {
+                query.setParameter("tipoTramite", Licencia.class);
+            } else if (tipo.equalsIgnoreCase("placa")) {
+                query.setParameter("tipoTramite", Placa.class);
+            }
+        }
+        if (desde != null && hasta != null) {
+            query.setParameter("fechaInicio", desde);
+            query.setParameter("fechaFin", hasta);
+        }
+        return query.getResultList();
+
+    }
+
+    private void agregarCondicion(StringBuilder jpqlBuilder, String condicion, boolean condicionesAgregadas) {
+        if (condicionesAgregadas) {
+            jpqlBuilder.append("AND ").append(condicion);
+        } else {
+            jpqlBuilder.append(" ").append(condicion);
+        }
     }
 
 }
