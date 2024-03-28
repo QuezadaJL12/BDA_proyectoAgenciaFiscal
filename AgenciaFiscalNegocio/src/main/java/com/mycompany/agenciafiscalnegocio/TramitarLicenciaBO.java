@@ -52,8 +52,10 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
         fecha_vencimiento.add(Calendar.YEAR, años);
-        Licencia licenciaNueva = new Licencia(fecha_vencimiento, fecha_vencimiento, vigencia, costo);
+        Licencia licenciaNueva = new Licencia(fecha_vencimiento, vigencia, true);
+        licenciaNueva.setFecha_expedicion(fechaActual);
         licenciaNueva.setCliente(this.cliente);
+        licenciaNueva.setCosto(costo);
         Licencia licenciaCreada = this.licenciaDAO.agregar(licenciaNueva);
 
         return convertirALicenciaDTO(licenciaCreada);
@@ -64,7 +66,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
-        Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramite);
+        Tramite tramiteConsultado = tramiteDAO.consultarLicenciaCliente(tramite);
         if (tramiteConsultado == null) {
             return null;
         }
@@ -79,6 +81,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         licenciaDTO.setCosto(licencia.getCosto());
         licenciaDTO.setFecha_expedicion(licencia.getFecha_expedicion());
         licenciaDTO.setFecha_vencimiento(licencia.getFecha_vencimiento());
+        licenciaDTO.setVigencia(licencia.getVigencia());
         return licenciaDTO;
     }
 
@@ -111,7 +114,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
         Map<String, Float> costoNormal = new HashMap<String, Float>() {
             {
-                put("1 AÑÓ", 200.0F);
+                put("1 AÑÓ", 600.0F);
                 put("2 AÑOS", 900.0F);
                 put("3 AÑOS", 1100.0F);
 

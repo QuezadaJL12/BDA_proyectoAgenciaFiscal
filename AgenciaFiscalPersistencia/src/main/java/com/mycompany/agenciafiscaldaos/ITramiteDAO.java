@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ITramiteDAO {
     
-    public Tramite consultarLicencias(Tramite tramite);
+    public Tramite consultarLicenciasClientes(Tramite tramite);
     
     public Tramite consultarPlacasCliente(Tramite tramite);
     

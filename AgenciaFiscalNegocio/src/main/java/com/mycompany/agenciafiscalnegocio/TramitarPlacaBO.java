@@ -66,8 +66,10 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     @Override
     public PlacaDTO solicitarPlacaVehiculo() {
         Calendar fecha = Calendar.getInstance();
-        Placa placa = new Placa(generarSeriePlaca(), fecha, placaDTO.getCosto(), true);
+        Placa placa = new Placa(generarSeriePlaca(), true);
         placa.setCliente(cliente);
+        placa.setCosto(placaDTO.getCosto());
+        placa.setFecha_expedicion(fecha);
 
         Placa placaNueva = placaDAO.agregar(placa);
         Vehiculo vehiculo = this.agregarVehiculo(placaNueva);
@@ -113,7 +115,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     private PlacaDTO convertirAPlacaDTO(Placa placa) {
-        PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_emision(), placa.getCosto(), placa.getEstado(), vehiculo);
+        PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_expedicion(), placa.getCosto(), placa.getEstado(), vehiculo);
         return placaDTO;
     }
 

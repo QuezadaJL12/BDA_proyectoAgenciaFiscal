@@ -30,7 +30,7 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public Tramite consultarLicencias(Tramite tramite) {
+    public Tramite consultarLicenciasClientes(Tramite tramite) {
         EntityManager entityManager = conexion.obtenerConexion();
         //objeto constructor de consultas
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -47,7 +47,6 @@ public class TramiteDAO implements ITramiteDAO {
             ultimoTramite = tramites.get(tramites.size() - 1);
         }
         return ultimoTramite;
-
     }
 
     @Override
