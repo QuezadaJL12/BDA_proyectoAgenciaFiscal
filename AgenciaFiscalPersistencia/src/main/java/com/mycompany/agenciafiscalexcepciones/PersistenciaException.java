@@ -8,27 +8,26 @@ package com.mycompany.agenciafiscalexcepciones;
  *
  * @author Usuario
  */
-public class ExcepcionConsultarVehiculo extends Exception {
+public class PersistenciaException extends Exception {
 
-    public ExcepcionConsultarVehiculo() {
+    public PersistenciaException() {
 
     }
 
-    public ExcepcionConsultarVehiculo(String message) {
+    public PersistenciaException(String message) {
         super(message);
-
     }
 
-    public ExcepcionConsultarVehiculo(String message, Throwable cause) {
+    public PersistenciaException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ExcepcionConsultarVehiculo(Throwable cause) {
+    public PersistenciaException(Throwable cause) {
         super(cause);
-
     }
 
-    public ExcepcionConsultarVehiculo(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public PersistenciaException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+
     }
 }
