@@ -4,10 +4,14 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldaos.ClienteDAO;
+import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
 import com.mycompany.agenciafiscaldaos.ITramiteDAO;
+import com.mycompany.agenciafiscaldaos.LicenciaDAO;
+import com.mycompany.agenciafiscaldaos.TramiteDAO;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Tramite;
@@ -32,6 +36,14 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
     private Cliente cliente;
+    
+    public TramitarLicenciaBO(){
+        conexion = new Conexion();
+        this.clienteDAO = new ClienteDAO(conexion);
+        this.licenciaDAO = new LicenciaDAO(conexion);
+        this.tramiteDAO= new TramiteDAO(conexion);
+        
+    }
 
     @Override
     public LicenciaDTO solicitarLicencia(int años) {
