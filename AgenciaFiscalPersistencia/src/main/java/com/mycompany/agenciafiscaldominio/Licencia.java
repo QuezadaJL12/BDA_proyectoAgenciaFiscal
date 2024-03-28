@@ -36,17 +36,16 @@ public class Licencia extends Tramite implements Serializable {
     @Column(name= "vigencia",nullable = false, length = 20)
     private String vigencia;
     
-    @Column(name="Costo", nullable = false)
-    private Float costo;
+    
 
     public Licencia() {
     }
 
-    public Licencia(Calendar fecha_vencimiento, Calendar fecha_expedicion, String vigencia, Float costo) {
+    public Licencia(Calendar fecha_vencimiento, Calendar fecha_expedicion, String vigencia) {
         this.fecha_vencimiento = fecha_vencimiento;
         this.fecha_expedicion = fecha_expedicion;
         this.vigencia = vigencia;
-        this.costo = costo;
+        
     }
 
     public Calendar getFecha_vencimiento() {
@@ -73,13 +72,7 @@ public class Licencia extends Tramite implements Serializable {
         this.vigencia = vigencia;
     }
 
-    public Float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(Float costo) {
-        this.costo = costo;
-    }
+    
     
     
 

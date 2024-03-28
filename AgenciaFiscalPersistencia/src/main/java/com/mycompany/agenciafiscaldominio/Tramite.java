@@ -6,6 +6,7 @@
 package com.mycompany.agenciafiscaldominio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -37,6 +40,13 @@ public class Tramite implements Serializable {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_expedicion", nullable = false)
+    private Calendar fecha_expedicion;
+
+    @Column(name = "Costo", nullable = false)
+    private Float Costo;
+
     public Tramite() {
 
     }
@@ -51,11 +61,26 @@ public class Tramite implements Serializable {
 
     public Cliente getCliente() {
         return cliente;
-
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Calendar getFecha_expedicion() {
+        return fecha_expedicion;
+    }
+
+    public void setFecha_expedicion(Calendar fecha_expedicion) {
+        this.fecha_expedicion = fecha_expedicion;
+    }
+
+    public Float getCosto() {
+        return Costo;
+    }
+
+    public void setCosto(Float Costo) {
+        this.Costo = Costo;
     }
 
     @Override

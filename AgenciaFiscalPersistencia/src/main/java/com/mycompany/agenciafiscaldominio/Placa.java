@@ -31,15 +31,8 @@ public class Placa extends Tramite implements Serializable {
     private String serie;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_emision", nullable = false)
-    private Calendar fecha_emision;
-
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_recepcion")
     private Calendar fecha_recepcion;
-
-    @Column(name = "costo", nullable = false)
-    private Float costo;
 
     @Column(name = "estado", nullable = false)
     private Boolean estado;
@@ -50,19 +43,8 @@ public class Placa extends Tramite implements Serializable {
     public Placa() {
     }
 
-    public Placa(String serie, Calendar fecha_emision, Float costo, Boolean estado) {
+    public Placa(String serie, Boolean estado) {
         this.serie = serie;
-        this.fecha_emision = fecha_emision;
-        this.costo = costo;
-        this.estado = estado;
-        this.vehiculo = vehiculo;
-    }
-
-    public Placa(String serie, Calendar fecha_emision, Calendar fecha_recepcion, Float costo, Boolean estado) {
-        this.serie = serie;
-        this.fecha_emision = fecha_emision;
-        this.fecha_recepcion = fecha_recepcion;
-        this.costo = costo;
         this.estado = estado;
     }
 
@@ -74,28 +56,12 @@ public class Placa extends Tramite implements Serializable {
         this.serie = serie;
     }
 
-    public Calendar getFecha_emision() {
-        return fecha_emision;
-    }
-
-    public void setFecha_emision(Calendar fecha_emision) {
-        this.fecha_emision = fecha_emision;
-    }
-
     public Calendar getFecha_recepcion() {
         return fecha_recepcion;
     }
 
     public void setFecha_recepcion(Calendar fecha_recepcion) {
         this.fecha_recepcion = fecha_recepcion;
-    }
-
-    public Float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(Float costo) {
-        this.costo = costo;
     }
 
     public Boolean getEstado() {

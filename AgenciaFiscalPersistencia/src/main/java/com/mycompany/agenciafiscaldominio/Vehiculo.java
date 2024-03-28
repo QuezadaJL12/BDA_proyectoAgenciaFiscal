@@ -47,21 +47,21 @@ public class Vehiculo implements Serializable {
     @Column(name = "modelo", nullable = false, length = 20)
     private String modelo;
 
+    @OneToOne()
+    @JoinColumn(name = "id_placa")
+    private Placa placa;
+
     public Vehiculo() {
     }
 
-    public Vehiculo( String serie, String marca, String color, String linea, String modelo) {
-        
+    public Vehiculo(String serie, String marca, String color, String linea, String modelo) {
+
         this.serie = serie;
         this.marca = marca;
         this.color = color;
         this.linea = linea;
         this.modelo = modelo;
     }
-
-    @OneToOne()
-    @JoinColumn(name = "id_placa")
-    private Placa placa;
 
     public Long getId() {
         return id;
@@ -110,8 +110,6 @@ public class Vehiculo implements Serializable {
     public void setPlaca(Placa placa) {
         this.placa = placa;
     }
-    
-    
 
     public String getModelo() {
         return modelo;
