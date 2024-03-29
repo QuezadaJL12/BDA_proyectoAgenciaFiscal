@@ -117,22 +117,21 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
-    @Override
-    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
-
+    
+   public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
         EntityManager entityManager = conexion.obtenerConexion();
-        StringBuilder jpqlBuilder = new StringBuilder("SELECT t FROM t JOIN t.cliente c WHERE 1 = 1");
+        StringBuilder jpqlBuilder = new StringBuilder("SELECT t FROM Tramite t JOIN t.cliente c WHERE 1 = 1");
 
         if (!nombre.isBlank()) {
-            jpqlBuilder.append("AMD c.nombre = :nombre");
+            jpqlBuilder.append(" AND c.nombre = :nombre");
         }
 
         if (!tipo.isBlank()) {
-            jpqlBuilder.append("AND TYPE (t) = : tipoTramite");
+            jpqlBuilder.append(" AND TYPE(t) = :tipoTramite");
         }
 
         if (desde != null && hasta != null) {
-            jpqlBuilder.append("AND t.fecha_expedicion BETWEEN : fechaInicio AND : fechaFin");
+            jpqlBuilder.append(" AND t.fecha_expedicion BETWEEN :fechaInicio AND :fechaFin");
         }
 
         TypedQuery<Tramite> query = entityManager.createQuery(jpqlBuilder.toString(), Tramite.class);
@@ -144,16 +143,18 @@ public class TramiteDAO implements ITramiteDAO {
         if (!tipo.isBlank()) {
             if (tipo.equalsIgnoreCase("Licencia")) {
                 query.setParameter("tipoTramite", Licencia.class);
-            } else if (tipo.equalsIgnoreCase("placa")) {
+
+            } else if (tipo.equalsIgnoreCase("Placa")) {
                 query.setParameter("tipoTramite", Placa.class);
             }
         }
+
         if (desde != null && hasta != null) {
             query.setParameter("fechaInicio", desde);
             query.setParameter("fechaFin", hasta);
         }
-        return query.getResultList();
 
+        return query.getResultList();
     }
 
     private void agregarCondicion(StringBuilder jpqlBuilder, String condicion, boolean condicionesAgregadas) {
