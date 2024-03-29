@@ -4,6 +4,8 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+
 /**
  *
  * @author Usuario
@@ -47,6 +49,11 @@ public class FormConsultas extends javax.swing.JPanel {
 
         btnCerrar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         btnCerrar.setText("Atras");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         txtNombre.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtNombre.setText("Nombre: ");
@@ -57,8 +64,31 @@ public class FormConsultas extends javax.swing.JPanel {
         txtFechaNacimiento.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtFechaNacimiento.setText("Fecha De Nacimiento:");
 
+        txfNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNombreActionPerformed(evt);
+            }
+        });
+
+        txfRfc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfRfcActionPerformed(evt);
+            }
+        });
+
+        txfFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfFechaNacimientoActionPerformed(evt);
+            }
+        });
+
         btnAceptar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar ");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,7 +169,41 @@ public class FormConsultas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfNombreActionPerformed
 
+    private void txfRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfRfcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfRfcActionPerformed
+
+    private void txfFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfFechaNacimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfFechaNacimientoActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormMenuPrincipal fpm = new FormMenuPrincipal();
+        fpm.setVisible(true);
+
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas(empaquetarDatos());
+        fcf.setVisible(true);
+
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    public ClienteDTO empaquetarDatos() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        if (txtNombre != null) {
+            clienteDTO.setNombre(txtNombre.getText());
+        }
+        if (txtRfc != null) {
+            clienteDTO.setRfc(txtRfc.getText());
+        }
+        return clienteDTO;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;

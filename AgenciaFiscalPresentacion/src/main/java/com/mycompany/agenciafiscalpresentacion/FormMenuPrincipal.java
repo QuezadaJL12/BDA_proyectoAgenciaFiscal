@@ -4,11 +4,16 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
+import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Usuario
  */
 public class FormMenuPrincipal extends javax.swing.JPanel {
+
+    private RegistroClienteBO registroClienteBo;
 
     /**
      * Creates new form FormMenuPrincipal
@@ -158,23 +163,32 @@ public class FormMenuPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
-        // TODO add your handling code here:
+        this.registroClienteBo = new RegistroClienteBO();
+
+        registroClienteBo.poblarClientes();
+        JOptionPane.showMessageDialog(this, "Se han agregado clientes");
     }//GEN-LAST:event_btnAgregarClientesActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
+         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        // TODO add your handling code here:
+        FormTramites ftl = new FormTramites();
+        ftl.setVisible(true);
+        
     }//GEN-LAST:event_btnTramitesActionPerformed
 
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
-        // TODO add your handling code here:
+         FormConsultas fc = new FormConsultas();
+        fc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnConsultasActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
+        FormFiltroReporte ffr = new FormFiltroReporte();
+        ffr.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
 
 
@@ -189,4 +203,8 @@ public class FormMenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panEntrar;
     // End of variables declaration//GEN-END:variables
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
