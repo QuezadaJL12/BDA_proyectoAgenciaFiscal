@@ -87,42 +87,37 @@ public class PlacaDTO {
      *
      * @param costo El costo de la placa.
      */
-
     public PlacaDTO(Float costo) {
         this.costo = costo;
     }
+
     /**
      * Obtiene la serie de la placa.
      *
      * @return La serie de la placa.
      */
-    
-
     public String getSerie() {
         return serie;
     }
-    
-     /**
+
+    /**
      * Establece la serie de la placa.
      *
      * @param serie La serie de la placa.
      */
-
     public void setSerie(String serie) {
         this.serie = serie;
     }
-    
-     /**
+
+    /**
      * Obtiene la fecha de emisión de la placa.
      *
      * @return La fecha de emisión de la placa.
      */
-
     public Calendar getFecha_emision() {
         return fecha_emision;
     }
 
-    
     /**
      * Establece la fecha de emisión de la placa.
      *
@@ -131,28 +126,26 @@ public class PlacaDTO {
     public void setFecha_emision(Calendar fecha_emision) {
         this.fecha_emision = fecha_emision;
     }
-    
-     /**
+
+    /**
      * Obtiene la fecha de recepción de la placa.
      *
      * @return La fecha de recepción de la placa.
      */
-
     public Calendar getFecha_recepcion() {
         return fecha_recepcion;
     }
-    
+
     /**
      * Establece la fecha de recepción de la placa.
      *
      * @param fecha_recepcion La fecha de recepción de la placa.
      */
-
     public void setFecha_recepcion(Calendar fecha_recepcion) {
         this.fecha_recepcion = fecha_recepcion;
     }
 
-     /**
+    /**
      * Obtiene el costo de la placa.
      *
      * @return El costo de la placa.
@@ -160,57 +153,68 @@ public class PlacaDTO {
     public Float getCosto() {
         return costo;
     }
-    
-     /**
+
+    /**
      * Establece el costo de la placa.
      *
      * @param costo El costo de la placa.
      */
-
     public void setCosto(Float costo) {
         this.costo = costo;
     }
-    
+
     /**
      * Obtiene el estado de la placa.
      *
      * @return El estado de la placa.
      */
-
     public Boolean getEstado() {
         return estado;
     }
-    
-     /**
+
+    /**
      * Establece el estado de la placa.
      *
      * @param estado El estado de la placa.
      */
-
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
-      /**
+
+    /**
      * Obtiene el vehículo asociado a la placa.
      *
      * @return El vehículo asociado a la placa.
      */
-
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
-    
-     /**
+
+    /**
      * Establece el vehículo asociado a la placa.
      *
      * @param vehiculo El vehículo asociado a la placa.
      */
-
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
-    
+
+    /**
+     * Obtiene el cliente asociado a la placa.
+     *
+     * @return El cliente asociado a la placa.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Establece el cliente asociado a la placa.
+     *
+     * @param cliente El cliente asociado a la placa.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 }
