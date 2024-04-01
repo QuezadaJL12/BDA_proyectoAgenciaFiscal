@@ -1,6 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * VehiculoDAO.java
  */
 package com.mycompany.agenciafiscaldaos;
 
@@ -15,16 +14,36 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
+ * Esta clase implementa la interfaz {@link IVehiculoDAO} y proporciona métodos
+ * para realizar operaciones CRUD relacionadas con los vehículos en la base de
+ * datos. Utiliza JPA y Criteria API para realizar consultas a la base de datos.
  *
- * @author Usuario
+ * La clase VehiculoDAO gestiona la persistencia de los objetos Vehiculo y
+ * proporciona métodos para consultar vehículos por su serie o por la serie de
+ * su placa.
+ *
+ * Esta clase es parte del conjunto de clases DAO (Data Access Object)
+ * utilizadas para interactuar con la capa de persistencia de la aplicación.
+ *
+ * {@inheritDoc}
  */
 public class VehiculoDAO implements IVehiculoDAO {
 
     private IConexion conexion;
+    
+    /**
+     * Crea una instancia de VehiculoDAO con la conexión proporcionada.
+     *
+     * @param conexion La conexión utilizada para acceder a la base de datos.
+     */
 
     public VehiculoDAO(IConexion conexion) {
         this.conexion = conexion;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
 
     @Override
     public Vehiculo consultar(String serie) throws PersistenciaException {
@@ -49,6 +68,10 @@ public class VehiculoDAO implements IVehiculoDAO {
         }
 
     }
+    
+    /**
+     * {@inheritDoc}
+     */
 
     @Override
     public Vehiculo consultarPorPlaca(String placaSerie) throws PersistenciaException {

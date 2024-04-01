@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * PlacaDAO.java
  */
 package com.mycompany.agenciafiscaldaos;
 
@@ -10,8 +9,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
+ *
+ *
+ * Implementación de {@link IPlacaDAO}.
+ *
+ * Esta clase proporciona métodos para agregar, consultar, actualizar y obtener
+ * placas. También incluye métodos para consultar placas dentro de un período de
+ * tiempo y obtener las placas de un cliente específico.
  *
  * @author Usuario
  */
@@ -19,10 +26,18 @@ public class PlacaDAO implements IPlacaDAO {
 
     private IConexion conexion;
 
+    /**
+     * Constructor de PlacaDAO.
+     *
+     * @param conexion La conexión utilizada para acceder a la base de datos.
+     */
     public PlacaDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa agregar(Placa placa) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -35,6 +50,9 @@ public class PlacaDAO implements IPlacaDAO {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa consultar(Long id) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -43,6 +61,9 @@ public class PlacaDAO implements IPlacaDAO {
         return placa;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa consultar(String serie) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -59,6 +80,9 @@ public class PlacaDAO implements IPlacaDAO {
         return placa;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa actualizar(Placa placa) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -70,9 +94,28 @@ public class PlacaDAO implements IPlacaDAO {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Placa> consultarTramitePeriodo(Calendar desde, Calendar hasta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Placa> consultarPlacasCliente(String rfc) {
+
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT l FROM Placa l JOIN Tramite t ON l.id = t.id WHERE t.cliente.rfc = :rfcCliente";
+        TypedQuery<Placa> query = entityManager.createQuery(jpql, Placa.class);
+        query.setParameter("rfcCliente", rfc);
+        return query.getResultList();
+
     }
 
 }

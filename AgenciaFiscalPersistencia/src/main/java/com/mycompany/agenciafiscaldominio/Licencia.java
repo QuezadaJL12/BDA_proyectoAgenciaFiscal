@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Licencia.java
  */
 package com.mycompany.agenciafiscaldominio;
 
@@ -18,6 +17,11 @@ import javax.persistence.TemporalType;
 
 /**
  *
+ * Clase que representa una licencia.
+ *
+ * Esta clase hereda de Tramite e incluye información adicional como la fecha de
+ * vencimiento, la vigencia y el estado de la licencia.
+ *
  * @author Usuario
  */
 @Entity
@@ -26,54 +30,87 @@ import javax.persistence.TemporalType;
 public class Licencia extends Tramite implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column (name = "fecha_vencimiento",nullable = false)
+    @Column(name = "fecha_vencimiento", nullable = false)
     private Calendar fecha_vencimiento;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name= "fecha_expedicion",nullable = false)
-    private Calendar fecha_expedicion;
-    
-    @Column(name= "vigencia",nullable = false, length = 20)
-    private String vigencia;
-    
-    
 
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
+
+    @Column(name = "vigencia", nullable = false, length = 20)
+    private String vigencia;
+
+    /**
+     * Constructor de la clase Licencia que recibe parámetros.
+     *
+     * @param fecha_vencimiento La fecha de vencimiento de la licencia.
+     * @param vigencia La vigencia de la licencia.
+     * @param estado El estado de la licencia.
+     */
+    public Licencia(Calendar fecha_vencimiento, Boolean estado, String vigencia) {
+        this.fecha_vencimiento = fecha_vencimiento;
+        this.estado = estado;
+        this.vigencia = vigencia;
+    }
+
+    /**
+     * Constructor por defecto de la clase Licencia.
+     */
     public Licencia() {
     }
 
-    public Licencia(Calendar fecha_vencimiento, Calendar fecha_expedicion, String vigencia) {
-        this.fecha_vencimiento = fecha_vencimiento;
-        this.fecha_expedicion = fecha_expedicion;
-        this.vigencia = vigencia;
-        
-    }
-
+    /**
+     * Devuelve la fecha de vencimiento de la licencia.
+     *
+     * @return La fecha de vencimiento de la licencia.
+     */
     public Calendar getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
+    /**
+     * Establece la fecha de vencimiento de la licencia.
+     *
+     * @param fecha_vencimiento La fecha de vencimiento de la licencia a
+     * establecer.
+     */
     public void setFecha_vencimiento(Calendar fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 
-    public Calendar getFecha_expedicion() {
-        return fecha_expedicion;
-    }
-
-    public void setFecha_expedicion(Calendar fecha_expedicion) {
-        this.fecha_expedicion = fecha_expedicion;
-    }
-
+    /**
+     * Devuelve la vigencia de la licencia.
+     *
+     * @return La vigencia de la licencia.
+     */
     public String getVigencia() {
         return vigencia;
     }
 
+    /**
+     * Establece la vigencia de la licencia.
+     *
+     * @param vigencia La vigencia de la licencia a establecer.
+     */
     public void setVigencia(String vigencia) {
         this.vigencia = vigencia;
     }
 
-    
-    
-    
+    /**
+     * Devuelve el estado de la licencia.
+     *
+     * @return El estado de la licencia.
+     */
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * Establece el estado de la licencia.
+     *
+     * @param estado El estado de la licencia a establecer.
+     */
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 
 }
