@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * TramitarLicenciaBO.java
  */
 package com.mycompany.agenciafiscalnegocio;
 
@@ -24,6 +23,8 @@ import java.util.Map;
 
 /**
  *
+ * Clase que implementa la lógica de negocio para tramitar licencias.
+ *
  * @author Usuario
  */
 public class TramitarLicenciaBO implements ITramitarLicenciaBO {
@@ -36,15 +37,24 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
     private Cliente cliente;
-    
-    public TramitarLicenciaBO(){
+
+    /**
+     * Constructor de la clase TramitarLicenciaBO.
+     */
+    public TramitarLicenciaBO() {
         conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
-        this.tramiteDAO= new TramiteDAO(conexion);
-        
+        this.tramiteDAO = new TramiteDAO(conexion);
+
     }
 
+    /**
+     * Solicita una nueva licencia para un cliente con una vigencia específica.
+     *
+     * @param años Duración en años de la licencia solicitada.
+     * @return Objeto LicenciaDTO que representa la nueva licencia.
+     */
     @Override
     public LicenciaDTO solicitarLicencia(int años) {
         Calendar fechaActual = Calendar.getInstance();
@@ -52,7 +62,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
         fecha_vencimiento.add(Calendar.YEAR, años);
-        Licencia licenciaNueva = new Licencia(fecha_vencimiento, vigencia, true);
+        Licencia licenciaNueva = new Licencia(fecha_vencimiento, Boolean.TRUE, vigencia);
         licenciaNueva.setFecha_expedicion(fechaActual);
         licenciaNueva.setCliente(this.cliente);
         licenciaNueva.setCosto(costo);
@@ -62,11 +72,18 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     }
 
+    /**
+     * Realiza la validación de la existencia de una licencia para el cliente
+     * actual.
+     *
+     * @return Objeto LicenciaDTO que representa la licencia existente del
+     * cliente.
+     */
     @Override
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
-        Tramite tramiteConsultado = tramiteDAO.consultarLicenciaCliente(tramite);
+        Tramite tramiteConsultado = tramiteDAO.consultarLicenciasClientes(tramite);
         if (tramiteConsultado == null) {
             return null;
         }
@@ -76,6 +93,12 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     }
 
+    /**
+     * Recibe una licencia y la convierte a licenciaDTO
+     *
+     * @param licencia licencia a convertir
+     * @return licenciaDTO convertida
+     */
     private LicenciaDTO convertirALicenciaDTO(Licencia licencia) {
         LicenciaDTO licenciaDTO = new LicenciaDTO();
         licenciaDTO.setCosto(licencia.getCosto());
@@ -85,11 +108,21 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         return licenciaDTO;
     }
 
+    /**
+     * Establece el cliente para el cual se realizará el trámite de la licencia.
+     *
+     * @param cliente ClienteDTO que representa al cliente.
+     */
     @Override
     public void setCliente(ClienteDTO cliente) {
         this.clienteDTO = cliente;
     }
 
+    /**
+     * Consulta la información del cliente actual.
+     *
+     * @return Objeto ClienteDTO que representa al cliente.
+     */
     @Override
     public ClienteDTO consultarCliente() {
 
@@ -104,11 +137,23 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     }
 
+    /**
+     * Establece los datos de la nueva licencia que se solicitará.
+     *
+     * @param licenciaNueva Datos de la nueva licencia.
+     */
     @Override
     public void setLicencia(LicenciaNuevaDTO licenciaNueva) {
         this.licenciaNueva = licenciaNueva;
     }
 
+    /**
+     * Calcula el costo de una licencia según su duración y el estado del
+     * cliente.
+     *
+     * @param año Duración en años de la licencia.
+     * @return Costo de la licencia.
+     */
     @Override
     public Float calcularCosto(String año) {
 

@@ -49,91 +49,82 @@ public class Tramite implements Serializable {
 
     @Column(name = "Costo", nullable = false)
     private Float Costo;
-    
-     /**
+
+    /**
      * Constructor por defecto de la clase Tramite.
      */
-
     public Tramite() {
 
     }
-    
-     /**
+
+    /**
      * Devuelve el ID del trámite.
      *
      * @return El ID del trámite.
      */
-
     public Long getId() {
         return id;
     }
-    
-     /**
+
+    /**
      * Establece el ID del trámite.
      *
      * @param id El ID del trámite a establecer.
      */
-
     public void setId(Long id) {
         this.id = id;
     }
-    
-     /**
+
+    /**
      * Devuelve el cliente asociado al trámite.
      *
      * @return El cliente asociado al trámite.
      */
-
     public Cliente getCliente() {
         return cliente;
     }
-    
-     /**
+
+    /**
      * Establece el cliente asociado al trámite.
      *
      * @param cliente El cliente asociado al trámite a establecer.
      */
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
+
     /**
      * Devuelve la fecha de expedición del trámite.
      *
      * @return La fecha de expedición del trámite.
      */
-
     public Calendar getFecha_expedicion() {
         return fecha_expedicion;
     }
-    
+
     /**
      * Establece la fecha de expedición del trámite.
      *
      * @param fecha_expedicion La fecha de expedición del trámite a establecer.
      */
-
     public void setFecha_expedicion(Calendar fecha_expedicion) {
         this.fecha_expedicion = fecha_expedicion;
     }
-    
+
     /**
      * Devuelve el costo del trámite.
      *
      * @return El costo del trámite.
      */
-
     public Float getCosto() {
         return Costo;
     }
-    
-     /**
+
+    /**
      * Establece el costo del trámite.
      *
      * @param Costo El costo del trámite a establecer.
      */
-
     public void setCosto(Float Costo) {
         this.Costo = Costo;
     }
