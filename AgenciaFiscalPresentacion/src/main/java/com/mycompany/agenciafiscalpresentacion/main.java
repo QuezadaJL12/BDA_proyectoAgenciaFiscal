@@ -12,8 +12,8 @@ public class main {
 
     public static void main(String[] args) {
 
-        FormMenuPrincipal fmp = new FormMenuPrincipal();
-        fmp.setVisible(true);
+        FormMenuPrincipal menu= new FormMenuPrincipal();
+        menu.setVisible(true);
 
     }
 }

@@ -1,17 +1,33 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.agenciafiscalpresentacion;
+
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
+import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
+import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
+import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
+import com.mycompany.agenciafiscalpresentacion.FormPago;
+import com.mycompany.agenciafiscalpresentacion.FormPlacas;
+import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class FormPlacasCarroSinRegistrar extends javax.swing.JPanel {
+public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
+
+    private ITramitarPlacaBO tramitarPlacaBO;
 
     /**
-     * Creates new form FormPlacasCarroSinRegistrar
+     * Creates new form FormPlacasCarroSinRegistar
      */
     public FormPlacasCarroSinRegistrar() {
         initComponents();
@@ -27,10 +43,10 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnCerrar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         txtNumSerie = new javax.swing.JLabel();
         txfNumSerie = new javax.swing.JTextField();
         txtMarca = new javax.swing.JLabel();
@@ -38,16 +54,24 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JPanel {
         txtLinea = new javax.swing.JLabel();
         txfLinea = new javax.swing.JTextField();
         txtModelo = new javax.swing.JLabel();
-        txfModelo = new javax.swing.JTextField();
         txtColor = new javax.swing.JLabel();
-        txfColor = new javax.swing.JTextField();
         txtRfcDueño = new javax.swing.JLabel();
+        txfColor = new javax.swing.JTextField();
         txfRfcDueño = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        txfModelo = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/agenciafiscalmultimedia/AgenciaFiscalLgo.png"))); // NOI18N
+        btnCerrar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        btnCerrar.setText("Atras");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Heavy", 3, 36)); // NOI18N
         jLabel2.setText("Placas");
@@ -55,145 +79,317 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Heavy", 3, 24)); // NOI18N
         jLabel3.setText("Carro Sin Registrar");
 
-        btnCerrar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        btnCerrar.setText("Atras");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscalLgo.png"))); // NOI18N
 
         txtNumSerie.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtNumSerie.setText("Numero de serie:");
 
         txfNumSerie.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfNumSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNumSerieActionPerformed(evt);
+            }
+        });
 
         txtMarca.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtMarca.setText("Marca:");
 
         txfMarca.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfMarcaActionPerformed(evt);
+            }
+        });
 
         txtLinea.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtLinea.setText("Linea:");
 
         txfLinea.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfLineaActionPerformed(evt);
+            }
+        });
 
         txtModelo.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtModelo.setText("Modelo:");
 
-        txfModelo.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
-
         txtColor.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtColor.setText("Color:");
-
-        txfColor.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
 
         txtRfcDueño.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtRfcDueño.setText("RFC del dueño:");
 
-        txfRfcDueño.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfColor.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfColorActionPerformed(evt);
+            }
+        });
+        txfColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfColorKeyTyped(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jButton1.setText("Aceptar");
+        txfRfcDueño.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfRfcDueño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfRfcDueñoActionPerformed(evt);
+            }
+        });
+
+        btnAceptar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        txfModelo.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        txfModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfModeloActionPerformed(evt);
+            }
+        });
+        txfModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfModeloKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel3)
-                        .addContainerGap(236, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar)
-                        .addGap(67, 67, 67))))
+                        .addGap(56, 56, 56))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtModelo)
-                    .addComponent(txtNumSerie)
-                    .addComponent(txtMarca)
-                    .addComponent(txtLinea)
-                    .addComponent(txtRfcDueño)
-                    .addComponent(txtColor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txfNumSerie)
-                    .addComponent(txfMarca)
-                    .addComponent(txfLinea)
-                    .addComponent(txfModelo)
-                    .addComponent(txfColor)
-                    .addComponent(txfRfcDueño, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(323, 323, 323))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtLinea)
+                            .addComponent(txtMarca)
+                            .addComponent(txtNumSerie))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfMarca)
+                            .addComponent(txfNumSerie)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtColor)
+                            .addComponent(txtModelo)
+                            .addComponent(txtRfcDueño))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfColor)
+                            .addComponent(txfLinea)
+                            .addComponent(txfRfcDueño, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(txfModelo)))))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(386, 386, 386)
+                .addComponent(btnAceptar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(btnCerrar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)))
-                .addGap(28, 28, 28)
+                .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNumSerie)
                     .addComponent(txfNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMarca))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtMarca)
+                    .addComponent(txfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtModelo))
+                    .addComponent(txtLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtModelo)
+                    .addComponent(txfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtColor)
-                    .addComponent(txfColor, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtRfcDueño))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txfRfcDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txfColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRfcDueño)
+                    .addComponent(txfRfcDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
+                .addComponent(btnAceptar)
+                .addGap(113, 113, 113))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormPlacas fp = new FormPlacas();
+        fp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void txfNumSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfNumSerieActionPerformed
+
+    private void txfMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfMarcaActionPerformed
+
+    private void txfLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfLineaActionPerformed
+
+    private void txfColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfColorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfColorActionPerformed
+
+    private void txfRfcDueñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfRfcDueñoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfRfcDueñoActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (validarCampos() == false) {
+            return;
+        }
+        String serie = txfNumSerie.getText();
+        String marca = txfMarca.getText();
+        String linea = txfLinea.getText();
+        String modelo = txfModelo.getText();
+        String color = txfColor.getText();
+        String rfc = txfRfcDueño.getText();
+
+        if (!validarFormatoSerie(serie)) {
+
+            JOptionPane.showMessageDialog(this, "El numero de serie debe ser ABC-123");
+
+            return;
+        }
+
+        if (validarCliente(rfc) == null) {
+            JOptionPane.showMessageDialog(this, "No existe el cliente");
+            return;
+        }
+
+        try {
+            if (validarVehiculo(serie) != null) {
+                JOptionPane.showMessageDialog(this, "El carro ya está registrado");
+                //Aqui colocar que si el carro ya está registrado preguntar si quiere
+                //ser redirigido a registrar placa carro viejo
+                return;
+            }
+        } catch (ExcepcionConsultarVehiculo ex) {
+            System.out.println(ex.getMessage());
+        }
+        guardarCostoPlaca();
+        tramitarPlacaBO.setTipoTramitePlaca("Vehiculo no registrado");
+        tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie, marca, color, linea, modelo));
+        if (tramitarPlacaBO.validacionLicenciaExistencia() == null) {
+            JOptionPane.showMessageDialog(this, "El cliente asociado con la RFC no tiene licencia");
+            return;
+        }
+
+        FormPago fpa = new FormPago(tramitarPlacaBO);
+        fpa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txfModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfModeloActionPerformed
+
+    private void txfColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfColorKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) { // Si el carácter no es una letra y tampoco es una tecla de borrado
+            evt.consume(); // Ignora e impide que se escriba el carácter
+        }
+    }//GEN-LAST:event_txfColorKeyTyped
+
+    private void txfModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfModeloKeyTyped
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txfModeloKeyTyped
+     private boolean validarFormatoSerie(String serie) {
+        String patron = "^[A-Z]{3}-\\d{3}$";
+
+        return serie.matches(patron);
+    }
+     
+      private boolean validarCampos() {
+        if (txfNumSerie.getText().isBlank() || txfMarca.getText().isBlank() || txfLinea.getText().isBlank() || txfModelo.getText().isBlank() || txfColor.getText().isBlank() || txfRfcDueño.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
+            return false;
+        }
+        return true;
+    }
+
+    private ClienteDTO validarCliente(String rfc) {
+        tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
+        ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
+        return clienteConsultado;
+    }
+
+    private VehiculoDTO validarVehiculo(String serie) throws ExcepcionConsultarVehiculo {
+        tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie));
+        VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculo();
+        return vehiculoDTO;
+    }
+
+    public void guardarCostoPlaca() {
+        Float monto = tramitarPlacaBO.CalcularCosto("nuevo");
+        tramitarPlacaBO.setPlaca(new PlacaDTO(monto));
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,20 +1,35 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.agenciafiscalpresentacion;
+
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
+import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
+import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
+import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
+import com.mycompany.agenciafiscalpresentacion.FormPlacas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class FormPlacasCarroRegistrado extends javax.swing.JPanel {
+public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
+    
+       private ITramitarPlacaBO tramitarPlacaBO;
 
     /**
-     * Creates new form FormPlacasCarroRegistrado
+     * Creates new form FormPlacasCarroRegistradoo
      */
     public FormPlacasCarroRegistrado() {
         initComponents();
+        
+          tramitarPlacaBO = new TramitarPlacaBO();
     }
 
     /**
@@ -27,28 +42,33 @@ public class FormPlacasCarroRegistrado extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnCerrar = new javax.swing.JButton();
         txtNumPlacasAnteriores = new javax.swing.JLabel();
         txfNumPlacasAnteriores = new javax.swing.JTextField();
         txtRfcNuevoDueño = new javax.swing.JLabel();
         txfRfcNuevoDueño = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/agenciafiscalmultimedia/AgenciaFiscalLgo.png"))); // NOI18N
+        btnCerrar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        btnCerrar.setText("Atras");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Heavy", 3, 36)); // NOI18N
         jLabel2.setText("Placas");
 
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Heavy", 3, 24)); // NOI18N
         jLabel3.setText("Carro Registrado");
-
-        btnCerrar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        btnCerrar.setText("Atras");
 
         txtNumPlacasAnteriores.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
         txtNumPlacasAnteriores.setText("Numero de placas anteriores:");
@@ -58,78 +78,179 @@ public class FormPlacasCarroRegistrado extends javax.swing.JPanel {
 
         btnAceptar.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscalLgo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(53, 53, 53)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar)
-                        .addGap(91, 91, 91))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel3))))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtRfcNuevoDueño)
+                    .addComponent(txtNumPlacasAnteriores))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txfRfcNuevoDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(282, 282, 282)
-                            .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(txtRfcNuevoDueño))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(txtNumPlacasAnteriores))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(352, 352, 352)
-                        .addComponent(btnAceptar)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAceptar)
+                            .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(19, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(btnCerrar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)))
-                .addGap(37, 37, 37)
-                .addComponent(txtNumPlacasAnteriores)
-                .addGap(18, 18, 18)
-                .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(txtRfcNuevoDueño)
-                .addGap(9, 9, 9)
-                .addComponent(txfRfcNuevoDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)))
+                .addGap(102, 102, 102)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumPlacasAnteriores)
+                    .addComponent(txfRfcNuevoDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRfcNuevoDueño)
+                    .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
                 .addComponent(btnAceptar)
-                .addGap(46, 46, 46))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormPlacas fp = new FormPlacas();
+        fp.setVisible(true);
+      
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String rfc = txfRfcNuevoDueño.getText();
+        String placaSerie = txfNumPlacasAnteriores.getText();
+
+        if (!validarCampos()) {
+            return;
+
+        }
+
+        if (!validarFormatoPlaca(placaSerie)) {
+
+            JOptionPane.showMessageDialog(this, "La placa tiene que estar en formato ABC-123");
+
+            return;
+        }
+        if (validarCliente(rfc) == null) {
+            JOptionPane.showMessageDialog(this, "No existe el cliente");
+            return;
+        }
+        try {
+            PlacaDTO placaDTO = validarPlaca(placaSerie);
+            if (placaDTO == null) {
+                JOptionPane.showMessageDialog(this, "No existe la placa");
+                return;
+
+            } else {
+                if (!placaDTO.getCliente().getRfc().equalsIgnoreCase(rfc)) {
+                    JOptionPane.showMessageDialog(this, "El cliente con el rfc " + rfc + " no es propietario de las placas");
+                    return;
+                }
+            }
+        } catch (ExcepcionConsultarVehiculo ex) {
+            JOptionPane.showMessageDialog(this, "No se ha podido consultar la placa");
+        }
+        try {
+            validarVehiculo();
+        } catch (ExcepcionConsultarVehiculo ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        tramitarPlacaBO.setTipoTramitePlaca("Vehiculo registrado");
+
+        guardarCostoPlaca();
+        FormPago fpa = new FormPago(tramitarPlacaBO);
+        fpa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private boolean validarCampos() {
+        if (txfNumPlacasAnteriores.getText().isBlank() || txfRfcNuevoDueño.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarFormatoPlaca(String seriePlaca) {
+        String patron = "^[A-Z]{3}-\\d{3}$";
+
+        return seriePlaca.matches(patron);
+    }
+
+    private ClienteDTO validarCliente(String rfc) {
+        tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
+        ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
+        return clienteConsultado;
+    }
+
+    private VehiculoDTO validarVehiculo() throws ExcepcionConsultarVehiculo {
+        VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculoPorPlaca();
+        return vehiculoDTO;
+    }
+
+    private PlacaDTO validarPlaca(String serie) throws ExcepcionConsultarVehiculo {
+        tramitarPlacaBO.setPlaca(new PlacaDTO(serie));
+        PlacaDTO placaDTO = tramitarPlacaBO.consultarPlaca();
+        return placaDTO;
+    }
+
+    public void guardarCostoPlaca() {
+        Float monto = tramitarPlacaBO.CalcularCosto("usado");
+        tramitarPlacaBO.setPlaca(new PlacaDTO(monto));
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
