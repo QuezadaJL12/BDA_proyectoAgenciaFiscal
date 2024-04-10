@@ -17,9 +17,12 @@ import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+import com.mycompany.agenciafiscalutileria.Encriptacion;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +40,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
     private Cliente cliente;
+    private Licencia licencia;
 
     /**
      * Constructor de la clase TramitarLicenciaBO.
@@ -62,12 +66,14 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
         fecha_vencimiento.add(Calendar.YEAR, años);
-        Licencia licenciaNueva = new Licencia(fecha_vencimiento, Boolean.TRUE, vigencia);
+        Licencia licenciaNueva = new Licencia(fecha_vencimiento, true, vigencia);
         licenciaNueva.setFecha_expedicion(fechaActual);
         licenciaNueva.setCliente(this.cliente);
         licenciaNueva.setCosto(costo);
+        if (this.licencia != null) {
+            actualizarLicenciaEstado(this.licencia);
+        }
         Licencia licenciaCreada = this.licenciaDAO.agregar(licenciaNueva);
-
         return convertirALicenciaDTO(licenciaCreada);
 
     }
@@ -91,6 +97,16 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
         return convertirALicenciaDTO(licencia);
 
+    }
+
+    /**
+     * Actualiza el estado de la licencia que recibe
+     *
+     * @param licencia licencia a actualizar
+     */
+    private void actualizarLicenciaEstado(Licencia licencia) {
+        licencia.setEstado(false);
+        licenciaDAO.actualizar(licencia);
     }
 
     /**
@@ -130,9 +146,12 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         if (cliente == null) {
             return null;
         }
-
-        ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
-
+        ClienteDTO clienteDTO = null;
+        try {
+            clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), Encriptacion.decrypt(cliente.getTelefono()));
+        } catch (Exception ex) {
+            Logger.getLogger(TramitarLicenciaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return clienteDTO;
 
     }
@@ -159,18 +178,18 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
         Map<String, Float> costoNormal = new HashMap<String, Float>() {
             {
-                put("1 AÑÓ", 600.0F);
-                put("2 AÑOS", 900.0F);
-                put("3 AÑOS", 1100.0F);
+                put("1 Año", 600.0F);
+                put("2 Años", 900.0F);
+                put("3 Años", 1100.0F);
 
             }
         };
 
         Map<String, Float> costoDiscapacitado = new HashMap<String, Float>() {
             {
-                put("1 AÑÓ", 200.0F);
-                put("2 AÑOS", 500.0F);
-                put("3 AÑOS", 700.0F);
+                put("1 Año", 200.0F);
+                put("2 Años", 500.0F);
+                put("3 Años", 700.0F);
             }
         };
 

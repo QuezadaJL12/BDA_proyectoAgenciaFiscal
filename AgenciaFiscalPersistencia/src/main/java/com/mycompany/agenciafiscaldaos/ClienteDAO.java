@@ -75,7 +75,7 @@ public class ClienteDAO implements IClienteDAO {
     public Cliente consultar(String rfc) {
         EntityManager entityManager = conexion.obtenerConexion();
 
-        Query query = entityManager.createNativeQuery("SELECT * FROM Clientes where rfc = ?", Cliente.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM clientes where rfc = ?", Cliente.class);
         query.setParameter(1, rfc);
 
         Cliente cliente = null;

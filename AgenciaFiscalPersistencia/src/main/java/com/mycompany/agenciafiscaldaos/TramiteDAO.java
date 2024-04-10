@@ -50,7 +50,7 @@ public class TramiteDAO implements ITramiteDAO {
         //Objeto consulta que se esta construyendo
         CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
         Root<Tramite> root = criteria.from(Tramite.class);
-        criteria.select(root).where(builder.and(builder.equal(root.type(), Licencia.class), builder.equal(root.get("Cliente").get("id"), tramite.getCliente().getId())));
+        criteria.select(root).where(builder.and(builder.equal(root.type(), Licencia.class), builder.equal(root.get("cliente").get("id"), tramite.getCliente().getId())));
         //consulta construida
         TypedQuery<Tramite> query = entityManager.createQuery(criteria);
         List<Tramite> tramites = query.getResultList();

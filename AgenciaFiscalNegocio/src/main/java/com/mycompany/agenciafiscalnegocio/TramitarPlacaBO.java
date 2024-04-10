@@ -225,7 +225,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramiteCliente = new Tramite();
         tramiteCliente.setCliente(cliente);
-        Tramite tramiteConsultado = tramiteDAO.consultarPlacasCliente(tramiteCliente);
+        Tramite tramiteConsultado = tramiteDAO.consultarLicenciasClientes(tramiteCliente);
         if (tramiteConsultado == null) {
             return null;
         }
